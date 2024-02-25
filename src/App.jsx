@@ -1,162 +1,194 @@
 // import { useState } from 'react'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import { Card } from './components/Card/Card'
 
 const App = () => {
-	const [counterCards, setCounterCards] = useState(0)
-	const [chosenCards, setChosenCards] = useState([])
+	// const [counterCards, setCounterCards] = useState(0)
+	const [counterMoves, setCounterMoves] = useState(0)
+
 	const sort = () => {
 		return 0.5 - Math.random()
 	}
+
 	const emojis = [
 		{
 			id: 0,
 			icon: '🐶',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 1,
 			icon: '🐶',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 2,
 			icon: '🌺',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 3,
 			icon: '🌺',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 4,
 			icon: '🍓',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 5,
 			icon: '🍓',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 6,
 			icon: '❤️',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 7,
 			icon: '❤️',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 8,
 			icon: '🤸‍♀️',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 9,
 			icon: '🤸‍♀️',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 10,
 			icon: '🏝',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 11,
 			icon: '🏝',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 12,
 			icon: '🌈',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 13,
 			icon: '🌈',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 14,
 			icon: '✈️',
 			isFlipped: false,
+			isMatched: false,
 		},
 		{
 			id: 15,
 			icon: '✈️',
 			isFlipped: false,
+			isMatched: false,
 		},
 	].sort(sort)
 	const [cards, setCards] = useState([...emojis])
+	const [choiceOne, setChoiceOne] = useState(null)
+	const [choiceTwo, setChoiceTwo] = useState(null)
+	// const [checkStatus, setCheckStatus] = useState('?')
 
-	const questionMark = '❓'
-	// console.log(emojis[0] === emojis[1])
-
-	const flipCard = id => {
-		setCards(prevCards =>
-			prevCards.map(card => {
-				if (card.id === id) {
-					return { ...card, isFlipped: true }
-				} else return card
-			})
-		)
-	}
-
-	const handleCardClick = (id, icon) => {
-		console.log(id, icon)
-
-		if (counterCards < 2) {
-			if (chosenCards.length === 1) {
-				flipCard(id)
-				setCounterCards(preValue => preValue + 1)
-				setChosenCards(prev => [...prev, { id, icon }])
+	useEffect(() => {
+		if (choiceOne && choiceTwo) {
+			if (choiceOne.icon === choiceTwo.icon) {
+				setCards(prevCards =>
+					prevCards.map(card => {
+						if (card.icon === choiceOne.icon) {
+							return { ...card, isMatched: true }
+						} else return card
+					})
+				)
+				resetTurn()
 			} else {
-				flipCard(id)
-				setCounterCards(preValue => preValue + 1)
-				setChosenCards(prev => [...prev, { id, icon }])
+				console.log('those cards do not match')
+
+				setTimeout(() => {
+					setCards(prevCards =>
+						prevCards.map(card => {
+							if (card.icon === choiceOne.icon) {
+								return { ...card, isFlipped: false }
+							} else return card
+						})
+					)
+					resetTurn()
+				}, 1000)
 			}
 		}
-		checkForMatch()
+	}, [choiceOne, choiceTwo])
+	console.log(cards)
+
+	// const handleCardClick = id => {
+	// 	console.log('handleCardClick')
+	// 	setCards(prevCards =>
+	// 		prevCards.map(card => {
+	// 			if (card.id === id) {
+	// 				console.log(card.icon)
+	// 				return { ...card, isFlipped: true }
+	// 			} else return card
+	// 		})
+	// 	)
+	// }
+	const handleChoice = card => {
+		choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
 	}
 
-	const checkForMatch = () => {
-		// setChosenCards(prev => [...prev])
-		console.log(chosenCards)
-		if (chosenCards.length === 2) {
-			const [first, second] = chosenCards
-			if (first.icon === second.icon) {
-				console.log('card match')
-			} else {
-				console.log('not match')
-			}
-		}
+	const resetTurn = () => {
+		setChoiceOne(null)
+		setChoiceTwo(null)
+		setCounterMoves(preValue => preValue + 1)
 	}
-
 	return (
 		<>
 			<div className='text-center'>
 				<h1 className='my-12 text-2xl'>Memory Game</h1>
 				<div className='grid grid-cols-4 gap-5 justify-items-center content-center'>
-					{cards.map(({ id, icon, isFlipped }) => (
-						<div
-							className={`flex justify-center items-center w-24 h-24 rounded-md cursor-pointer transition-transform hover:scale-110 ${
-								isFlipped ? ' bg-neutral-400' : 'bg-yellow-400'
-							}`}
-							key={id}
-							id={id}
-							onClick={() => handleCardClick(id, icon)}
-						>
-							<span className='scale-150'>
-								{isFlipped ? icon : questionMark}
-							</span>
-						</div>
+					{cards.map(card => (
+						<Card
+							key={card.id}
+							id={card.id}
+							icon={card.icon}
+							isFlipped={
+								card === choiceOne ||
+								card === choiceTwo ||
+								card.isMatched
+							}
+							onClick={() => {
+								handleChoice(card)
+								// setCounterCards(preValue => preValue + 1)
+								setCounterMoves(preValue => preValue + 1)
+							}}
+						></Card>
 					))}
 				</div>
-				<p>{counterCards}</p>
+				<p>Moves {counterMoves}</p>
+				{/* {choiceTwo && <p>{checkStatus}</p>} */}
 				<button className='w-2/4 py-3 px-6 mt-12 cursor-pointer rounded-md border-2 border-solid text-xl bg-rose-300 border-rose-300 transition-colors hover:bg-white hover:text-rose-300 '>
 					Reset
 				</button>
