@@ -1,17 +1,11 @@
-// import { useState } from 'react'
-
 import { useState, useEffect } from 'react'
 import './App.css'
 import { Card } from './components/Card/Card'
 
 const App = () => {
-	// const [counterCards, setCounterCards] = useState(0)
-	const [counterMoves, setCounterMoves] = useState(0)
-
 	const sort = () => {
 		return 0.5 - Math.random()
 	}
-
 	const emojis = [
 		{
 			id: 0,
@@ -113,57 +107,66 @@ const App = () => {
 	const [cards, setCards] = useState([...emojis])
 	const [choiceOne, setChoiceOne] = useState(null)
 	const [choiceTwo, setChoiceTwo] = useState(null)
-	// const [checkStatus, setCheckStatus] = useState('?')
+	const [counterMoves, setCounterMoves] = useState(0)
+	const [isAllMatched, setIsAllMatched] = useState(false)
 
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
-			if (choiceOne.icon === choiceTwo.icon) {
+			if (choiceOne.id === choiceTwo.id) {
+				setChoiceTwo(null)
+			}
+			if (choiceOne.icon === choiceTwo.icon && choiceOne.id !== choiceTwo.id) {
 				setCards(prevCards =>
 					prevCards.map(card => {
-						if (card.icon === choiceOne.icon) {
-							return { ...card, isMatched: true }
+						if (card.icon === choiceOne.icon && choiceOne.id !== choiceTwo.id) {
+							return { ...card, isFlipped: true, isMatched: true }
 						} else return card
 					})
 				)
-				resetTurn()
+				reset()
 			} else {
-				console.log('those cards do not match')
-
 				setTimeout(() => {
-					setCards(prevCards =>
-						prevCards.map(card => {
-							if (card.icon === choiceOne.icon) {
-								return { ...card, isFlipped: false }
-							} else return card
-						})
-					)
-					resetTurn()
+					if (choiceOne.id !== choiceTwo.id) {
+						setCards(prevCards =>
+							prevCards.map(card => {
+								if (card.icon === choiceOne.icon) {
+									return { ...card, isFlipped: false }
+								} else return card
+							})
+						)
+						reset()
+					}
 				}, 1000)
+			}
+			if (choiceOne.id !== choiceTwo.id) {
+				setCounterMoves(preValue => preValue + 1)
 			}
 		}
 	}, [choiceOne, choiceTwo])
-	console.log(cards)
 
-	// const handleCardClick = id => {
-	// 	console.log('handleCardClick')
-	// 	setCards(prevCards =>
-	// 		prevCards.map(card => {
-	// 			if (card.id === id) {
-	// 				console.log(card.icon)
-	// 				return { ...card, isFlipped: true }
-	// 			} else return card
-	// 		})
-	// 	)
-	// }
+	useEffect(() => {
+		const matchedCards = card => card.isMatched === true
+
+		if (cards.every(matchedCards)) {
+			setIsAllMatched(prev => !prev)
+		}
+	}, [cards])
+
 	const handleChoice = card => {
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
 	}
 
-	const resetTurn = () => {
+	const reset = () => {
 		setChoiceOne(null)
 		setChoiceTwo(null)
-		setCounterMoves(preValue => preValue + 1)
 	}
+	const resetBoard = () => {
+		reset()
+		setCounterMoves(0)
+		setCards([...emojis])
+		setIsAllMatched(false)
+	}
+
 	return (
 		<>
 			<div className='text-center'>
@@ -180,17 +183,29 @@ const App = () => {
 								card.isMatched
 							}
 							onClick={() => {
-								handleChoice(card)
-								// setCounterCards(preValue => preValue + 1)
-								setCounterMoves(preValue => preValue + 1)
+								// checkForAllMatch()
+
+								if (
+									(choiceOne === null && choiceOne === null) ||
+									(choiceOne !== null && choiceTwo === null)
+								) {
+									handleChoice(card)
+								}
 							}}
 						></Card>
 					))}
 				</div>
-				<p>Moves {counterMoves}</p>
-				{/* {choiceTwo && <p>{checkStatus}</p>} */}
-				<button className='w-2/4 py-3 px-6 mt-12 cursor-pointer rounded-md border-2 border-solid text-xl bg-rose-300 border-rose-300 transition-colors hover:bg-white hover:text-rose-300 '>
-					Reset
+				<p className='pt-4'>Moves: {counterMoves}</p>
+				{isAllMatched && (
+					<p className='pt-4 text-lg animate-pulse'>
+						Congratulations! You have found them all!!! 🎉{' '}
+					</p>
+				)}
+				<button
+					onClick={resetBoard}
+					className='w-2/4 py-3 px-6 mt-12 cursor-pointer rounded-md border-2 border-solid text-xl bg-rose-300 border-rose-300 transition-colors hover:bg-white hover:text-rose-300 '
+				>
+					Reset the board
 				</button>
 			</div>
 		</>
