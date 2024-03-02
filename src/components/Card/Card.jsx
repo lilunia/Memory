@@ -10,7 +10,6 @@ export const Card = ({ id, icon, isFlipped, onClick }) => {
 			id={id}
 			onClick={onClick}
 		>
-			{/* <span className='scale-150'>{icon}</span> */}
 			<span className='scale-150'>{isFlipped ? icon : questionMark}</span>
 		</div>
 	)
