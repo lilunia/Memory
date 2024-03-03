@@ -99,7 +99,7 @@ export const Board = ({ cards, setCards }) => {
 				}}
 				className='w-2/4 py-3 px-6 my-12 cursor-pointer rounded-md border-2 border-solid text-xl bg-rose-300 border-rose-300 transition-colors hover:bg-white hover:text-rose-300 '
 			>
-				Reset the board
+				Reset board
 			</button>
 		</>
 	)
