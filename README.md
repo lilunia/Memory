@@ -1,6 +1,6 @@
 # Memory game
 
-This memory game was created with Vite+React.
+This memory game was created with Vite+React. Tailwind CSS was used for styling.
 
 ## Live
 
