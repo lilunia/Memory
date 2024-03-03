@@ -12,6 +12,7 @@ This memory game was created with Vite+React. Tailwind CSS was used for styling.
 <a href="https://react.dev/"><img src="./src/img/React-icon.png" style="width:32px; height:32px;" alt="React icon"></a>
 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS?retiredLocale=pl"><img src="./src/img/css3_icon.svg" style="width:32px; height:32px;" alt="Css icon"></a>
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="./src/img/js_icon.svg" style="width:32px; height:32px;" alt="JS icon"></a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="./src/img/tailwind-css-logo.png" style="width:32px; height:32px;" alt="Tailwind CSS icon"></a>
 
 ## About the project
 
