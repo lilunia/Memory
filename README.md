@@ -38,6 +38,6 @@ To run this project, you must have the following dependencies installed:
 
 git clone https://github.com/lilunia/Memory.git
 npm install
-npm run start
+npm run dev
 
 ```
