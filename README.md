@@ -27,3 +27,15 @@ To start the game again, click on "Reset board".
   <p align="center">
   <img src="./src/img/memory-game.PNG" width= "70%" height= "70%" alt="Main app screenshot">
   </p>
+  
+## Installation
+
+To run this project, you must have the following dependencies installed:
+
+- Git (https://git-scm.com)
+
+```bash
+
+https://github.com/lilunia/Memory.git
+
+```
