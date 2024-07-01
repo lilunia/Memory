@@ -14,9 +14,8 @@ This memory game was created with Vite+React. Tailwind CSS was used for styling.
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="./src/img/js_icon.svg" style="width:32px; height:32px;" alt="JS icon"></a>
 <<<<<<< HEAD
 <a href="https://tailwindcss.com/"><img src="./src/img/tailwind-css-logo.png" style="width:40px; height:32px;" alt="Tailwind CSS icon"></a>
-=======
 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="./src/img/tailwind-css-logo.png" style="width:40px; height:32px;" alt="Tailwind CSS icon"></a>
->>>>>>> 5657e4520f14b8f521ae549d48c0bb6eb2cc7cf3
+
 
 ## About the project
 
@@ -29,7 +28,7 @@ To start the game again, click on "Reset board".
 ## Screenshot
 
   <p align="center">
-  <img src="./src/img/memory-game.png" width= "70%" height= "70%" alt="Main app screenshot">
+  <img src="./src/img/memory-game.PNG" width= "70%" height= "70%" alt="Main app screenshot">
   </p>
   
 ## Installation
