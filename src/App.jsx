@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Board } from './components/Board/Board'
-import { emojis } from './utils/emojis'
+import { emojisCards } from './utils/emojisCards'
 
 const App = () => {
 	const sort = () => {
 		return 0.5 - Math.random()
 	}
-	const sortedEmojis = emojis.sort(sort)
+	const sortedEmojis = emojisCards.sort(sort)
 	const [cards, setCards] = useState([...sortedEmojis])
 
 	return (

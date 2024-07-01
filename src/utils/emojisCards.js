@@ -1,4 +1,4 @@
-export const emojis = [
+export const emojisCards = [
 	{
 		id: 0,
 		icon: '🐶',

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Card } from '../Card/Card'
-import { emojis } from '../../utils/emojis'
+import { emojisCards } from '../../utils/emojisCards'
 
 export const Board = ({ cards, setCards }) => {
 	const [counterMoves, setCounterMoves] = useState(0)
 	const [isAllMatched, setIsAllMatched] = useState(false)
 	const [choiceOne, setChoiceOne] = useState(null)
 	const [choiceTwo, setChoiceTwo] = useState(null)
-	
+
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
 			if (choiceOne.id === choiceTwo.id) {
@@ -57,7 +57,7 @@ export const Board = ({ cards, setCards }) => {
 
 	const resetBoard = () => {
 		reset()
-		setCards([...emojis])
+		setCards([...emojisCards])
 		setCounterMoves(0)
 		setIsAllMatched(false)
 	}
@@ -88,7 +88,7 @@ export const Board = ({ cards, setCards }) => {
 			</div>
 			<p className='pt-4'>Moves: {counterMoves}</p>
 			{isAllMatched && (
-				<p className='pt-4 text-lg animate-pulse'>
+				<p className='pt-4 text-xs md:text-base lg:text-xl animate-pulse'>
 					Congratulations! You have found them all!!! 🎉
 				</p>
 			)}
@@ -97,7 +97,7 @@ export const Board = ({ cards, setCards }) => {
 				onClick={() => {
 					resetBoard()
 				}}
-				className='w-2/4 py-3 px-6 my-12 cursor-pointer rounded-md border-2 border-solid text-xl bg-rose-300 border-rose-300 transition-colors hover:bg-white hover:text-rose-300 '
+				className='w-2/4 py-3 px-6 my-6 md:my-12 cursor-pointer rounded-md border-2 border-solid text-xl bg-rose-300 border-rose-300 transition-colors hover:bg-white hover:text-rose-300 '
 			>
 				Reset board
 			</button>
